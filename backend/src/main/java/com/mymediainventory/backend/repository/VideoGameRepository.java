@@ -1,4 +1,7 @@
 package com.mymediainventory.backend.repository;
 
-public class VideoGameRepository {
+import com.mymediainventory.backend.model.VideoGame;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface VideoGameRepository extends JpaRepository<VideoGame, Long> {
 }
