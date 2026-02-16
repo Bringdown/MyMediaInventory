@@ -2,10 +2,10 @@ package com.mymediainventory.backend.controller;
 
 import com.mymediainventory.backend.model.VideoGame;
 import com.mymediainventory.backend.repository.VideoGameRepository;
-import org.springframework.boot.context.config.ConfigDataResourceNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 import java.util.Map;
@@ -27,8 +27,10 @@ public class VideoGameController {
 
     @GetMapping("/{id}")
     public VideoGame getGame(@PathVariable Long id) {
-        return repository.findById(id).orElse(null);
+        return repository.findById(id)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Game not found"));
     }
+
 
     @PostMapping
     public VideoGame addGame(@RequestBody VideoGame videoGame) {
